@@ -11,14 +11,14 @@ deploy:
         username: ec2-user
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd /home/ec2-user/soyibjon-diplom-ishi  
+          cd /home/ec2-user/ScholarMap  
           git fetch origin main
           sudo chown -R ec2-user:ec2-user .        
           git reset --hard origin/main    # ← eski o'zgarishlarni bekor qiladi                    
            
            
                               
-          docker build --no-cache -t soyibjon-diplom-ishi-web:latest .  
+          docker build --no-cache -t ScholarMap-web:latest .  
           docker-compose up -d --no-build
 
 
