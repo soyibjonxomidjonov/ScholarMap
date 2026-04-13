@@ -30,7 +30,7 @@ class JWTSchemaGenerator(OpenAPISchemaGenerator):
 schema_view = get_schema_view(
     openapi.Info(
         title="API  ScholarMap",
-        default_version='v1',
+        default_version='v2',
         description='API documentation for ScholarMap ',
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="amanovjavlonbek25@gmail.com"),
