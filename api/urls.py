@@ -42,8 +42,9 @@ schema_view = get_schema_view(
 )
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
 router.register(r'universiteties', UniversitetViewSet)
+router.register(r'users', UserViewSet)
+
 # router.register(r'users', UserViewSet)
 # router.register(r'shops', ShopViewSet)
 
