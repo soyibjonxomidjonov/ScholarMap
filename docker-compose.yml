@@ -11,7 +11,7 @@ services:
       - POSTGRES_PASSWORD=${USER_PASSWORD}
 
   web:
-    build: .
+    image: ScholarMap-web:latest
     command: >
       bash -c "python manage.py migrate &&
                python manage.py collectstatic --no-input &&
