@@ -1,0 +1,27 @@
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+
+  steps:
+    - name: AWS EC2 ga SSH orqali ulanish
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_DNS }}
+        username: ec2-user
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          cd /home/ec2-user/soyibjon-diplom-ishi  
+          git fetch origin main
+          sudo chown -R ec2-user:ec2-user .        
+          git reset --hard origin/main    # ← eski o'zgarishlarni bekor qiladi                    
+           
+           
+                              
+          docker build --no-cache -t soyibjon-diplom-ishi-web:latest .  
+          docker-compose up -d --no-build
+
+
+          docker-compose exec -T web python manage.py migrate
+          docker-compose exec -T web python manage.py collectstatic --noinput 
+          docker system prune -f

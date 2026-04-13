@@ -1,0 +1,54 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Postgres konteynerini shu yerda yoqamiz
+    services:
+      postgres_db:
+        image: postgres:15
+        env:
+          POSTGRES_DB: ${{ secrets.DATABASE_NAME }}  # O'zingiz xohlagan nom
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.USER_PASSWORD }}
+        ports:
+        - 5432:5432
+
+        # Postgres tayyor bo'lishini kutish uchun health check
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY_PORTFOLIO }}
+      EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+      EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+      POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      DATABASE_HOST: localhost  # GitHub runner uchun localhost deb yoziladi
+      DATABASE_PORT: 5432
+      DEBUG: "False"
+
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.11
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run tests
+      run: python manage.py test
