@@ -1,10 +1,9 @@
-from datetime import datetime
 from django.db import models
 
 
 
 
-class Universities(models.Model):
+class University(models.Model):
     university_name = models.CharField(max_length=100, blank=False, null= False)
     state = models.CharField(max_length=100, blank=False, null= False)
 
