@@ -21,7 +21,9 @@ jobs:
             git reset --hard origin/main
             
             docker build --no-cache -t ScholarMap-web:latest .  
-            docker-compose up -d --no-build
+            docker-compose up -d --no-build --force-recreate
+
+
 
             docker-compose exec -T web python manage.py migrate
             docker-compose exec -T web python manage.py collectstatic --noinput 
