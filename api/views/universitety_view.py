@@ -24,3 +24,4 @@ class UniversitetViewSet(viewsets.ModelViewSet):
     queryset = University.objects.all()
     serializer_class = UniversitySerializerConfig
     pagination_class = CustomPagination
+    swagger_tags = ['1. Users']
