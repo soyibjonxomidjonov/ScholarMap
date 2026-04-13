@@ -29,11 +29,11 @@ class JWTSchemaGenerator(OpenAPISchemaGenerator):
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="API Soyibjon Shops",
+        title="API  ScholarMap",
         default_version='v1',
-        description='Soyibjon Shops API',
+        description='API documentation for ScholarMap ',
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="soyibjon12ss@gmail.com"),
+        contact=openapi.Contact(email="amanovjavlonbek25@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
