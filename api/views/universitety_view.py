@@ -19,8 +19,8 @@ class CustomPagination(PageNumberPagination):
 
 
 class UniversitetViewSet(viewsets.ModelViewSet):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
     queryset = University.objects.all()
     serializer_class = UniversitySerializerConfig
     pagination_class = CustomPagination
