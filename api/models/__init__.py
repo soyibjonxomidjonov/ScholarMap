@@ -1,2 +1,2 @@
 from .user import *
-from .universitets import *
+from .universities import *
