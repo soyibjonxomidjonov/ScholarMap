@@ -20,7 +20,7 @@ jobs:
             sudo chown -R ec2-user:ec2-user .        
             git reset --hard origin/main
             
-            docker build --no-cache -t ScholarMap-web:latest .  
+            docker build --no-cache -t scholarmap-web:latest .  
             docker-compose up -d --no-build --force-recreate
 
 
