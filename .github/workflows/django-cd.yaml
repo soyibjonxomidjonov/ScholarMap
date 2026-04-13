@@ -21,7 +21,8 @@ jobs:
             git reset --hard origin/main
             
             docker build --no-cache -t scholarmap-web:latest .  
-            docker-compose up -d --build web
+            docker-compose up -d --no-build --force-recreate
+
 
 
             docker-compose exec -T web python manage.py migrate
