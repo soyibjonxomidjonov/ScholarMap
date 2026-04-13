@@ -182,6 +182,17 @@ DJOSER = {
     'SERIALIZERS': {},
 }
 
+
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_INFO': 'api.urls.schema_view', # O'zingni schema_view yo'ling
+    'TAGS_SORTER': None,       # Alifbo tartibini o'chirish (Guruhlar uchun)
+    'OPERATIONS_SORTER': None, # Metodlar (GET, POST...) tartibini o'chirish
+}
+
+
+
+
 AUTH_USER_MODEL = 'api.User'
 
 
