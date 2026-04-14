@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
-from api.views import UserViewSet, UniversitetViewSet
+from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet
 
 
 class JWTSchemaGenerator(OpenAPISchemaGenerator):
@@ -45,6 +45,7 @@ router = DefaultRouter()
 
 router.register(r'users', UserViewSet)
 router.register(r'universiteties', UniversitetViewSet)
+router.register(r'eslatmalar', EslatmaViewSet)
 
 # router.register(r'users', UserViewSet)
 # router.register(r'shops', ShopViewSet)
