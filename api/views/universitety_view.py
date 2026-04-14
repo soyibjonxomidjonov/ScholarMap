@@ -13,7 +13,7 @@ from rest_framework import viewsets
 
 
 class CustomPagination(PageNumberPagination):
-    page_size = 3
+    page_size = 20
 
 
 
