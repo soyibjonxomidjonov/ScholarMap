@@ -1,6 +1,9 @@
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
+
+
 
 
 
@@ -22,6 +25,7 @@ tarif = (
     ('pro', 'Pro'),
 )
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     last_name = models.CharField(max_length=30, null=True, blank=True)
     sharif = models.CharField(max_length=20, null=True, blank=True)
 
@@ -32,5 +36,10 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='user/%Y/%m/%d/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+    USERNAME_FIELD = 'email'  # Mana shu qator Djangoga "username o'rniga emailni ishlat" deydi
+    REQUIRED_FIELDS = ['username']  # Email doimiy bo'lgani uchun bu bo'sh bo'lishi mumkin
+
     def __str__(self):
         return self.first_name if self.first_name else self.username
+
