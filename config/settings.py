@@ -48,9 +48,14 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'djoser',
+
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    # react uchun
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -223,6 +228,7 @@ CSRF_COOKIE_SECURE = True
 CORS_ALLOWED_ORIGINS = [
     "https://scholarmap.uz",
     "https://www.scholarmap.uz",
+    "https://scholarmap.uz:3000",  # Agar frontend portda ishlayotgan bo'lsa
     "http://localhost:3000",  # React/Next.js bo'lsa
     "http://localhost:5173",  # Vite bo'lsa
     "http://127.0.0.1:3000",
@@ -236,3 +242,4 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
