@@ -39,6 +39,7 @@ class Eslatma(models.Model):
                                          choices=Warning_sms
                                          ,null= True, verbose_name="Ogohlantirish SMS matni")
     eslatma_kun = models.DateField(blank=True, null= True, verbose_name="Eslatish sanasi")
+    chat_id = models.CharField(max_length=300, blank=True, null=True, verbose_name="Telegram chat ID")
     @property
     def qolgan_kun(self):
         bugun = timezone.now().date()
