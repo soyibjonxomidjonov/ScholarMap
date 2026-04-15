@@ -3,6 +3,12 @@ from .user import User
 from django.utils import timezone
 
 
+
+Warning_sms = (
+    ("gmail", "Gmail"),
+    ("bot", "Bot"),
+)
+
 class University(models.Model):
     university_name = models.CharField(max_length=100, blank=False, null= False)
     state = models.CharField(max_length=100, blank=False, null= False)
@@ -27,6 +33,11 @@ class Eslatma(models.Model):
     universitet = models.ForeignKey(University, on_delete=models.CASCADE, related_name='eslatma_universitet')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="eslatma_user")
 
+    ogohlantirish_sms = models.CharField(max_length=300,
+                                         default="gmail"
+                                         ,blank=True,
+                                         choices=Warning_sms
+                                         ,null= True, verbose_name="Ogohlantirish SMS matni")
     eslatma_kun = models.DateField(blank=True, null= True, verbose_name="Eslatish sanasi")
     @property
     def qolgan_kun(self):
