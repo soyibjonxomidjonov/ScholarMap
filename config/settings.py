@@ -223,6 +223,9 @@ CSRF_COOKIE_SECURE = True
 CORS_ALLOWED_ORIGINS = [
     "https://scholarmap.uz",
     "https://www.scholarmap.uz",
+    "http://localhost:3000",  # React/Next.js bo'lsa
+    "http://localhost:5173",  # Vite bo'lsa
+    "http://127.0.0.1:3000",
 ]
 
 # CSRF uchun ishonchli domenlar
@@ -230,3 +233,4 @@ CSRF_TRUSTED_ORIGINS = [
     "https://scholarmap.uz",
     "https://www.scholarmap.uz",
 ]
+
