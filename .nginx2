@@ -1,0 +1,124 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /run/nginx.pid;
+
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    tcp_nopush      on;
+    keepalive_timeout  65;
+    types_hash_max_size 4096;
+
+    server {
+        # SHU YERGA DOMEN QO'SHILDI:
+        server_name api.shops-platform.uz;
+
+        # 1. Django Admin va Swagger statik fayllari
+        location /static/ {
+            alias /home/ec2-user/soyibjon-diplom-ishi/staticfiles/;
+        }
+
+        # 2. Media fayllar (rasmlar va h.k)
+        location /media/ {
+            alias /home/ec2-user/soyibjon-diplom-ishi/media/;
+        }
+
+        # 3. Asosiy API va Django so'rovlarini konteynerga yuborish
+        location / {
+            proxy_pass http://localhost:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        # Xatolik sahifalari
+        error_page 404 /404.html;
+        location = /404.html { }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html { }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/shops-platform.uz/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/shops-platform.uz/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+    server {
+    if ($host = api.shops-platform.uz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = www.shops-platform.uz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = shops-platform.uz) {
+        return 301 https://$host$request_uri;
+        }
+
+
+  #  if ($host = api.shops-platform.uz) {
+ #       return 301 https://$host$request_uri;
+#    } # managed by Certbot
+
+
+        listen 80;
+        server_name shops-platform.uz www.shops-platform.uz api.shops-platform.uz;
+    return 404; # managed by Certbot
+
+
+
+}
+
+
+# 1. REACT/NEXT.JS LOYIHA (shops-platform.uz)
+server {
+    listen 443 ssl;
+    server_name shops-platform.uz www.shops-platform.uz;
+
+    # Build papkangiz yo'li (Next.js-da odatda out yoki .next papkasi)
+ #   root /home/ec2-user/shops-platform-react-v2/out;
+    index index.html;
+
+    location / {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+
+    # SSL sertifikatlari
+    ssl_certificate /etc/letsencrypt/live/shops-platform.uz/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/shops-platform.uz/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+}
+

@@ -1,0 +1,82 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /run/nginx.pid;
+
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    tcp_nopush      on;
+    keepalive_timeout  65;
+    types_hash_max_size 4096;
+
+    # 1. HTTP -> HTTPS REDIRECT
+    server {
+        listen 80;
+        server_name scholarmap.uz www.scholarmap.uz;
+
+        location /.well-known/acme-challenge/ {
+            root /usr/share/nginx/html;
+        }
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+
+    # 2. HTTPS - ASOSIY SERVER
+    server {
+        listen 443 ssl;
+        server_name scholarmap.uz www.scholarmap.uz;
+
+        # SSL SERTIFIKATLARI (Bular endi sizda bor)
+        ssl_certificate /etc/letsencrypt/live/scholarmap.uz/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/scholarmap.uz/privkey.pem;
+
+        # Django Static
+        location /static/ {
+            alias /home/ec2-user/ScholarMap/staticfiles/;
+            expires 30d;
+            add_header Cache-Control "public, no-transform";
+        }
+
+        # Media fayllar
+        location /media/ {
+            alias /home/ec2-user/ScholarMap/media/;
+            client_max_body_size 50M;
+        }
+
+        # Backend Proxy
+        location / {
+            proxy_pass http://localhost:8000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_read_timeout 300;
+            proxy_connect_timeout 300;
+            proxy_send_timeout 300;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html { root /usr/share/nginx/html; }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html { root /usr/share/nginx/html; }
+    }
+}

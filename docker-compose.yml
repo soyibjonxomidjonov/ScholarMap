@@ -29,7 +29,30 @@ services:
     depends_on:
       - db
 
+  rabbitmq:
+    image: rabbitmq:latest
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
 
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    command: celery -A config worker --loglevel=info
+    volumes:
+      - .:/app
+      - media_volume:/app/media
+    depends_on:
+      - rabbitmq
+      - redis
+    env_file:
+      - .env
 
 volumes:
   postgres_data:

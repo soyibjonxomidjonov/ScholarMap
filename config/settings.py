@@ -203,3 +203,30 @@ STATIC_URL = 'static/'
 
 # Mana shu qatorni qo'shing:
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL") # RabbitMQ yoki Redis URL manzili
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") #Redis yoki boshqa natija
+
+
+
+
+# SSL sozlamalari
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# CORS sozlamalari (CORS_ALLOWED_ORIGINS paketini o'rnatgan bo'lsangiz)
+CORS_ALLOWED_ORIGINS = [
+    "https://scholarmap.uz",
+    "https://www.scholarmap.uz",
+]
+
+# CSRF uchun ishonchli domenlar
+CSRF_TRUSTED_ORIGINS = [
+    "https://scholarmap.uz",
+    "https://www.scholarmap.uz",
+]
