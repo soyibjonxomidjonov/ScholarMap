@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from api.serializers import UserSerializerConfig
 from api.models import User
@@ -20,8 +20,8 @@ class CustomPagination(PageNumberPagination):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = []
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializerConfig
     pagination_class = CustomPagination
