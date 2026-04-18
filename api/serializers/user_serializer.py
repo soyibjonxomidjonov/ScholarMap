@@ -7,8 +7,7 @@ class UserSerializerConfig(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["email", "id", "password" , "first_name", "phone_number", "last_name", "sharif","image", "lang", "created_at"]
-        extra_kwargs = {'password': {'write_only': True}}
-
+        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'read_only': True}}
 
     def create(self, validated_data):
         # Username majburiy bo'lgani uchun unga emailni berib yuboramiz

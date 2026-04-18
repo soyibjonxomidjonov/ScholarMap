@@ -7,6 +7,7 @@ from django.db import models
 
 
 
+
 phone_regex = RegexValidator(
     regex=r'^\+998\d{9}$',
     message="Phone number must be entered in the format: '+998xxxxxxxxx'. Up to 9 digits allowed."
@@ -42,4 +43,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.first_name if self.first_name else self.username
+
+
 
