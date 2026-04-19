@@ -119,6 +119,12 @@ def ai_chat(request):
         response = AI_image_chat(text, file)
         return Response(response)
     else:
+        if response_type == "pdf":
+            response = AI_chat(text)
+            pdf_response = text_to_pdf(response)
+            http_response = HttpResponse(pdf_response, content_type='application/pdf')
+            http_response['Content-Disposition'] = 'attachment; filename="chat_response.pdf"'
+            return http_response
         response = AI_chat(text)
         return Response(response)
 

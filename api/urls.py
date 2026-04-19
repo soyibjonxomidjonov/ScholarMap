@@ -14,7 +14,6 @@ from rest_framework_simplejwt.views import (
 
 from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet, ai_chat, super_ai_translate
 
-from api.views.view_test import your_functional_view
 
 
 # from api.views import super_ai_translate, ai_chat
