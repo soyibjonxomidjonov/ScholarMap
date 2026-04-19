@@ -1,0 +1,45 @@
+[33m45e9de4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m merge conflicts resolved
+[33md2c95f4[m AI and AI translate
+[33m93c58cc[m register Allowany
+[33mf7ea51d[m User update
+[33m3991641[m Auth model update
+[33m48fa800[m password qo'shildi
+[33m3efd569[m Bug topildi
+[33m8db2fd9[m celry ochirldi
+[33m4fc550e[m react uchun update
+[33mae4d3f4[m host update
+[33m011c56b[m serializer update
+[33m597a749[m serializer update
+[33m6f32dd6[m ogohlantirish habarini sms type tayyorlandi
+[33m7024d60[m ogohlantirish habarini sms type tayyorlandi
+[33m005ba15[m ogohlantirish habarini sms type tayyorlandi
+[33m3f1ed13[m create selery library
+[33md80d2eb[m swager https update
+[33m5e81499[m SSL sertifikat olindi
+[33mc751899[m Serializer fields update
+[33m8441bf8[m Serializer update create Meta class
+[33mfd9ce03[m Eslatma modeli qo'shilsa serializer bilan view yozildi
+[33m4ac37d2[m Update pagination
+[33mcdf144a[m baza to'ldirish
+[33m6bb6856[m Debug
+[33mfaf04fe[m CD rollback
+[33m1c1d483[m CD update
+[33mc2df435[m admin panel muammolari
+[33m1e26e02[m TArtibni o'chirish 2 urinishi
+[33m1fe38ab[m Alifbo tartibini o'chirildi
+[33m36391e8[m Bug togrilash uchun
+[33me949fb5[m Loyihaga Universitet modeli serizalizer bilan to'liq ishga tushurildi
+[33m3a62ce1[m universitet modeli qoshildi
+[33m34002bf[m Test commit
+[33m67b83b7[m docker-compose update
+[33m110582d[m CD update
+[33m75ca666[m CD update
+[33m3990dd0[m loyiha to'liq nomiga moslandi
+[33m01ed82c[m u=3 update
+[33m0341e9b[m CD yangilandi
+[33m85a5aaa[m CD birinchi commit
+[33m9dd7d52[m Loyiha statik ka tuzatish kiritildi
+[33m38372ff[m warning yo'qotildi
+[33m86d4e8e[m gunicorm ga o'zgatirildi run qilish
+[33m387f2d4[m loyiha fayllar bilan toldirildi
+[33mf13852a[m Initial commit
