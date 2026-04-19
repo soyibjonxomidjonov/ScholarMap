@@ -14,7 +14,11 @@ class UserSerializerConfig(serializers.ModelSerializer):
     def create(self, validated_data):
         # Username majburiy bo'lgani uchun unga emailni berib yuboramiz
         validated_data['username'] = validated_data.get('email')
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        user.is_active = True  # ✅ Shu yerda aniq belgilang
+        user.save(update_fields=['is_active'])  # ✅ Bu qator bo'lmasa DB ga saqlanmaydi!
+        return user
+
 
 
 

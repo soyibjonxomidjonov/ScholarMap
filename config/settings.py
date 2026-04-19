@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'djoser',
     # frontend ulanish uchun
     'corsheaders',
+#     filters
+    'django_filters',
 ]
 
 MIDDLEWARE = [
