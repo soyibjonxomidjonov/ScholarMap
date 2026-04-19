@@ -32,7 +32,7 @@ class EslatmaFilter(django_filters.FilterSet):
 
     class Meta:
         model = Eslatma
-        fields = ['user', 'university', 'eslatma_matni ', 'qolgan_kun', 'tugash_kun']
+        fields = ['user', 'university', 'eslatma_matni', 'qolgan_kun', 'tugash_kun']
 
     def filter_qolgan_kun(self, queryset, name, value):
         # value = 5 (masalan)
