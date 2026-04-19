@@ -16,7 +16,7 @@ class UniversityFilter(django_filters.FilterSet):
 
     class Meta:
         model = University
-        fields = ['university_name', 'state', 'max_price', 'level', 'grant_name', 'grand_amount', 'grand_turi',
+        fields = ['university_name', 'state', 'level', 'grant_name', 'grand_amount', 'grand_turi',
                   'directions', 'reception_start', 'reception_end']
 
 
