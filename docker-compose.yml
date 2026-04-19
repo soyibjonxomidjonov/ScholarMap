@@ -11,11 +11,13 @@ services:
       - POSTGRES_PASSWORD=${USER_PASSWORD}
 
   web:
-    image: scholarmap-web:latest
+    build: .
+    #    image: scholarmap-web:latest
+
     command: >
-      bash -c "python manage.py migrate &&
-               python manage.py collectstatic --no-input &&
-               gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+          bash -c "python manage.py migrate &&
+           python manage.py collectstatic --no-input &&
+           gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     volumes:
       - .:/app
       - ./media:/app/media

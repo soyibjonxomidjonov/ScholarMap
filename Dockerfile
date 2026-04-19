@@ -10,13 +10,19 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 #Standart shunday yoziladi
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+
 WORKDIR /app
 # Bunda container yaratilganda uni ichida kichkina app degan papkaga tushadi
 
 COPY requirements.txt .
 # Bunda requirments.txt nusxa olib contaninerga tashlanadi
-RUN pip install --upgrade pip  # <--- Buni qoshing
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 # Shunday qilib o'rnatiladi
 
 

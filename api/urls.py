@@ -12,7 +12,12 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
-from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet
+from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet, ai_chat, super_ai_translate
+
+from api.views.view_test import your_functional_view
+
+
+# from api.views import super_ai_translate, ai_chat
 
 
 class JWTSchemaGenerator(OpenAPISchemaGenerator):
@@ -71,4 +76,15 @@ urlpatterns = [
 
 
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name="schema-redoc"),
+
+
+
+
+#     Funksiyalar uchun url
+#     path('v1/translate/', super_ai_translate, name="super_ai_translate"),
+#     path('v1/function-based/', your_functional_view, name="test_functional_view"),
+
+
+    path('v1/ai-chat/', ai_chat, name="ai_chat"),
+    path('v1/super-ai-translate/', super_ai_translate, name="super_ai_translate"),
 ]

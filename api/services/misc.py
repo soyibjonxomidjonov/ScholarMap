@@ -1,35 +1,62 @@
-from google import genai
+from fpdf import FPDF
+from unidecode import unidecode
+from fpdf.enums import XPos, YPos
 
 
+def text_to_pdf(text: str) -> bytes:
+    if not text:
+        text = "Bo'sh matn"
 
+    replacements = {
+        '•': '-', '·': '-', '◦': '-', '▪': '-', '▸': '-',
+        '→': '->', '←': '<-', '↑': '^', '↓': 'v',
+        '©': '(c)', '®': '(r)', '™': '(tm)',
+        '…': '...', '—': '-', '–': '-',
+        '\u02bc': "'", '\u02bb': "'",
+        '\u2018': "'", '\u2019': "'",
+        '\u201c': '"', '\u201d': '"',
+        '\t': '  ',
+    }
+    for char, replacement in replacements.items():
+        text = text.replace(char, replacement)
 
+    text = unidecode(text)
+    text = ''.join(c if 32 <= ord(c) <= 126 or c == '\n' else ' ' for c in text)
 
-MY_KEY = "AIzaSyA06vnIj81lqLgVMqxlZNLmu0RNybc6ipk"
+    lines = text.split('\n')
 
-def file_to_text(api, file_path):
-    # API kalitni bu yerga qo'ying
-    MY_KEY = "AIzaSyA06vnIj81lqLgVMqxlZNLmu0RNybc6ipk"
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_margins(20, 20, 20)
+    pdf.set_font("helvetica", size=10)
+    effective_width = pdf.w - pdf.l_margin - pdf.r_margin
 
-    client = genai.Client(api_key=MY_KEY)
+    for line in lines:
+        try:
+            cleaned = line.lstrip()
+            if cleaned:
+                pdf.multi_cell(
+                    effective_width,
+                    6,
+                    txt=cleaned,
+                    align='L',
+                    new_x=XPos.LMARGIN,  # har qatordan keyin chap marginga qayt
+                    new_y=YPos.NEXT,     # pastga tush
+                )
+            else:
+                pdf.ln(4)
+        except Exception:
+            try:
+                words = line.lstrip().split()
+                if words:
+                    pdf.multi_cell(
+                        effective_width, 6,
+                        txt=' '.join(words),
+                        align='L',
+                        new_x=XPos.LMARGIN,
+                        new_y=YPos.NEXT,
+                    )
+            except Exception:
+                continue
 
-    try:
-        print("Siz foydalana oladigan modellar ro'yxati:")
-        print("-" * 30)
-
-        # Modellarni ko'rishning eng oddiy yo'li
-        for model in client.models.list():
-            # Yangi SDKda modelning nomi model.name da bo'ladi
-            print(f"Model: {model.name}")
-        # Sizning ro'yxatingizdagi 'gemini-flash-latest' modelini ishlatamiz
-        response = client.models.generate_content(
-            model='gemini-flash-latest',
-            contents="Menga rasmni sozlarni olib translate qilib jo'natish kerak shuni qila olasanmi?"
-        )
-
-        print("-" * 20)
-        print("Javob:")
-        print(response.text)
-        print("-" * 20)
-
-    except Exception as e:
-        print(f"Xatolik yuz berdi: {e}")
+    return bytes(pdf.output())
