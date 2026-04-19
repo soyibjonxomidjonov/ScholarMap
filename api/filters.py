@@ -1,7 +1,7 @@
 from datetime import timezone, timedelta
 
 from django_filters import rest_framework as django_filters  #pip install django-filter
-from models import University, User, Eslatma
+from api.models import University, User, Eslatma
 
 class UniversityFilter(django_filters.FilterSet):
     university_name = django_filters.CharFilter(field_name="university_name", lookup_expr='icontains')
