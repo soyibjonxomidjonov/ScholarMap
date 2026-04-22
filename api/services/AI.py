@@ -2,9 +2,6 @@ import os
 from dotenv import load_dotenv
 from google import genai
 from PIL import Image, UnidentifiedImageError# Rasmlar bilan ishlash uchun
-
-from celery import shared_task
-
 import json
 load_dotenv() # .env fayldagi o'zgaruvchilarni yuklaydi
 
@@ -15,8 +12,6 @@ index = 0
 security = "Do not use any Markdown formatting. Strictly prohibit the use of asterisks (*) and double asterisks (**) for bolding, lists, or emphasis. Return only plain text"
 chat_history = []
 
-
-@shared_task
 def generate_AI(text= None, file = None, translate_lang=None):
     contents = []
     image_obj = None
@@ -84,15 +79,13 @@ def generate_AI(text= None, file = None, translate_lang=None):
             return generate_AI(text, image_obj, translate_lang)  # Xatolik yuz bersa, qayta urinib ko'rish
 
 
-@shared_task
+
 def AI_image_chat(text, file_path):
     return generate_AI(text=text, file=file_path)
 
-@shared_task
 def AI_chat(text):
     return generate_AI(text=text)
 
-@shared_task
 def AI_translate_image(text, image, target_lang):
     return generate_AI(text=text, file=image ,translate_lang=target_lang)
 

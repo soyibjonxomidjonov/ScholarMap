@@ -41,7 +41,7 @@ def super_ai_translate(request):
         response_type = serializer.validated_data.get('response_type', 'text')
 
         if target_lang != None and file != None:
-            translation = AI_translate_image.delay((text, file, target_lang))
+            translation = AI_translate_image(text, file, target_lang)
             print(f"DEBUG translation: {translation}")  # ← shu qatorni qo'shing
             if response_type == "pdf":
                 if isinstance(translation, dict):
@@ -111,21 +111,21 @@ def ai_chat(request):
 
     if file:
         if response_type == "pdf":
-            response = AI_image_chat.delay((text, file))
+            response = AI_image_chat(text, file)
             pdf_response = text_to_pdf(response)
             http_response = HttpResponse(pdf_response, content_type='application/pdf')
             http_response['Content-D    isposition'] = 'attachment; filename="chat_response.pdf"'
             return http_response
-        response = AI_image_chat.delay((text, file))
+        response = AI_image_chat(text, file)
         return Response(response)
     else:
         if response_type == "pdf":
-            response = AI_chat.delay((text))
+            response = AI_chat(text)
             pdf_response = text_to_pdf(response)
             http_response = HttpResponse(pdf_response, content_type='application/pdf')
             http_response['Content-Disposition'] = 'attachment; filename="chat_response.pdf"'
             return http_response
-        response = AI_chat.delay((text))
+        response = AI_chat(text)
         return Response(response)
 
 
