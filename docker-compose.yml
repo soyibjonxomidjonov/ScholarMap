@@ -45,7 +45,7 @@ services:
       - "6379:6379"
 
   celery:
-    build: .
+    image: scholarmap-web
     command: celery -A config worker --loglevel=info
     volumes:
       - .:/app
