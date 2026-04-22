@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
 from billing.models import Transaction
+from billing.serializer import TransactionSerializer
 from billing.utils import check_click_sign
 from api.models import User
 
@@ -78,7 +79,13 @@ class ClickCompleteView(APIView):
 
 class ClickCreatePaymentView(APIView):
     def post(self, request):
-        amount = request.data.get('amount')
+
+        serializer = TransactionSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
+
+        amount = serializer.validated_data['amount']
         user = request.user
 
         payment_url = (
