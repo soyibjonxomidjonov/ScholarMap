@@ -17,4 +17,4 @@ def check_eslatmalar():
                 send_telegram_bot.delay(eslatma.id, eslatma.chat_id)
     return f"{eslatmalar.count()} ta eslatma yuborildi."
 
-
+# Sinov
