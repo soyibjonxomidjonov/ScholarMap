@@ -25,11 +25,10 @@ jobs:
             if git diff HEAD~1 HEAD --name-only | grep -q "requirements.txt"; then
               docker build -t scholarmap-web:latest .
             fi
-#Update
+                    
             docker-compose up -d --force-recreate
-#            Migrate
+            
             docker-compose exec -T web python manage.py migrate
-#                    Static fayllarni yig'ish
             docker-compose exec -T web python manage.py collectstatic --noinput
 
 
