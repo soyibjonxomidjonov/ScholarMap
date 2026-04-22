@@ -47,3 +47,12 @@ class EslatmaFilter(django_filters.FilterSet):
 
         # Bugun va 'value' kun oralig'idagi tugaydiganlarni olish
         return queryset.filter(reception_end__gte=today, reception_end__lte=target_date)
+
+
+class UserFilter(django_filters.FilterSet):
+    phone_number = django_filters.CharFilter(field_name="username", lookup_expr='icontains')
+    email = django_filters.CharFilter(field_name="email", lookup_expr='icontains')
+
+    class Meta:
+        model = User
+        fields = ['phone_number', 'email']
