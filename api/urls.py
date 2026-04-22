@@ -91,8 +91,8 @@ urlpatterns = [
     path('v1/ai-chat/result/<str:task_id>/', ai_chat_result),
 
 
-    path('click/pay/', ClickCreatePaymentView.as_view(), name='click-pay'),          # havola yaratish
-    path('click/prepare/', ClickPaymentView.as_view(), name='click-prepare'),        # Click webhook 1
-    path('click/complete/', ClickCompleteView.as_view(), name='click-complete'),
+    path('v1/click/pay/', ClickCreatePaymentView.as_view(), name='click-pay'),          # havola yaratish
+    path('v1/click/prepare/', ClickPaymentView.as_view(), name='click-prepare'),        # Click webhook 1
+    path('v1/click/complete/', ClickCompleteView.as_view(), name='click-complete'),
 ]
 
