@@ -96,4 +96,3 @@ urlpatterns = [
     path('click/complete/', ClickCompleteView.as_view(), name='click-complete'),
 ]
 
-]
