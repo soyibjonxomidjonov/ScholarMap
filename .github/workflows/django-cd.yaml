@@ -27,8 +27,7 @@ jobs:
             fi
             docker-compose up -d --force-recreate
             
-            docker system prune -f
-
+            docker image prune -f
 
 
 
