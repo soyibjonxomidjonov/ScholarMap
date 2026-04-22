@@ -1,7 +1,7 @@
 from celery import shared_task
 from datetime import date
 from api.models import Eslatma
-from views.eslatma_view import send_eslatma_email, send_telegram_bot
+from api.views.eslatma_view import send_eslatma_email, send_telegram_bot
 
 
 @shared_task
