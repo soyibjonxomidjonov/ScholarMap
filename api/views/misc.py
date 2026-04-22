@@ -15,7 +15,8 @@ from api.services.misc import text_to_pdf
 
 from drf_spectacular.utils import extend_schema # 1. Importni qo'shi
 
-
+from api.tasks import ai_chat_task
+from celery.result import AsyncResult
 
 
 # @permission_classes([IsAuthenticated]) # Bunda permison qoshildi
@@ -125,8 +126,8 @@ def ai_chat(request):
             http_response = HttpResponse(pdf_response, content_type='application/pdf')
             http_response['Content-Disposition'] = 'attachment; filename="chat_response.pdf"'
             return http_response
-        response = AI_chat(text)
-        return Response(response)
+        task = ai_chat_task.delay(text)
+        return Response({"task_id": task.id, "status": "processing"})
 
 
 
@@ -134,7 +135,12 @@ def ai_chat(request):
 
 
 
-
+@api_view(['GET'])
+def ai_chat_result(request, task_id):
+    task = AsyncResult(task_id)
+    if task.ready():
+        return Response({"status": "completed", "result": task.result})
+    return Response({"status": "processing"})
 
 
 
