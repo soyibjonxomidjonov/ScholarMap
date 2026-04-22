@@ -15,6 +15,7 @@ from rest_framework_simplejwt.views import (
 from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet, ai_chat, super_ai_translate
 
 from api.views.misc import ai_chat_result
+from billing.views import ClickPaymentView, ClickCompleteView, ClickCreatePaymentView
 
 
 # from api.views import super_ai_translate, ai_chat
@@ -88,5 +89,11 @@ urlpatterns = [
     path('v1/ai-chat/', ai_chat, name="ai_chat"),
     path('v1/super-ai-translate/', super_ai_translate, name="super_ai_translate"),
     path('v1/ai-chat/result/<str:task_id>/', ai_chat_result),
+
+
+    path('click/pay/', ClickCreatePaymentView.as_view(), name='click-pay'),          # havola yaratish
+    path('click/prepare/', ClickPaymentView.as_view(), name='click-prepare'),        # Click webhook 1
+    path('click/complete/', ClickCompleteView.as_view(), name='click-complete'),
+]
 
 ]
