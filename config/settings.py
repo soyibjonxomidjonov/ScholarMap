@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'corsheaders',
 #     filters
     'django_filters',
+
+    'billing',
 ]
 
 MIDDLEWARE = [
