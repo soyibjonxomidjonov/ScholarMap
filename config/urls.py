@@ -24,6 +24,8 @@ from config.settings import MEDIA_ROOT, STATIC_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('api/billing/', include('billing.urls')),
+
 ]
 
 
