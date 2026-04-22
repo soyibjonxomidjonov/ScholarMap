@@ -4,6 +4,9 @@ from api.models import Eslatma
 from api.views.eslatma_view import send_eslatma_email, send_telegram_bot
 
 
+from api.services.AI import AI_chat, AI_image_chat
+
+
 @shared_task
 def check_eslatmalar():
     bugun = date.today()
@@ -18,3 +21,10 @@ def check_eslatmalar():
     return f"{eslatmalar.count()} ta eslatma yuborildi."
 
 # Sinov
+
+
+@shared_task
+def ai_chat_task(text, file_path=None):
+    if file_path:
+        return AI_image_chat(text, file_path)
+    return AI_chat(text)

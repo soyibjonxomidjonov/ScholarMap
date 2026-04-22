@@ -14,6 +14,7 @@ from rest_framework_simplejwt.views import (
 
 from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet, ai_chat, super_ai_translate
 
+from api.views.misc import ai_chat_result
 
 
 # from api.views import super_ai_translate, ai_chat
@@ -86,4 +87,6 @@ urlpatterns = [
 
     path('v1/ai-chat/', ai_chat, name="ai_chat"),
     path('v1/super-ai-translate/', super_ai_translate, name="super_ai_translate"),
+    path('v1/ai-chat/result/<str:task_id>/', ai_chat_result),
+
 ]
