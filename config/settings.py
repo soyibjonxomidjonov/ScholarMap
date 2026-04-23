@@ -233,6 +233,7 @@ CSRF_COOKIE_SECURE = True
 CORS_ALLOWED_ORIGINS = [
     "https://scholarmap.uz",
     "https://www.scholarmap.uz",
+    "https://web.scholarmap.uz",
     "https://scholarmap.uz:3000",  # Agar frontend portda ishlayotgan bo'lsa
     "http://localhost:3000",  # React/Next.js bo'lsa
     "http://localhost:5173",  # Vite bo'lsa
