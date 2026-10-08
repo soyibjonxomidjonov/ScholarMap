@@ -95,7 +95,7 @@ _GROQ_KEYS: List[str] = [
 
 _key_index = 0
 _key_lock = threading.Lock()
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "qwen/qwen3.8-27b"
 
 
 def _current_key() -> str:

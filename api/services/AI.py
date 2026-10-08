@@ -29,7 +29,7 @@ _api_keys = [
 _key_lock = threading.Lock()
 _key_index = 0
 
-MODEL_NAME = "gemini-2.0-flash"
+MODEL_NAME = "gemini-3.8-flash"
 NO_MARKDOWN = (
     "Do not use any Markdown formatting. "
     "Strictly prohibit asterisks (*), double asterisks (**), "
