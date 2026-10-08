@@ -25,7 +25,7 @@ class UniversityFilter(django_filters.FilterSet):
 
 class EslatmaFilter(django_filters.FilterSet):
     user = django_filters.NumberFilter(field_name="user__id")
-    university = django_filters.NumberFilter(field_name="university__id")
+    university = django_filters.NumberFilter(field_name="universitet__id")
     eslatma_matni = django_filters.CharFilter(field_name="eslatma_matni", lookup_expr='icontains')
     qolgan_kun = django_filters.NumberFilter(method='filter_qolgan_kun')
     tugash_kun = django_filters.NumberFilter(method='filter_tugash_kun')
@@ -38,7 +38,7 @@ class EslatmaFilter(django_filters.FilterSet):
         # value = 5 (masalan)
         # bugun + 5 kun = maqsadli sana
         target_date = timezone.now().date() + timedelta(days=value)
-        return queryset.filter(reception_start=target_date)
+        return queryset.filter(universitet__reception_start=target_date)
 
     def filter_tugash_kun(self, queryset, name, value):
         # reception_end bugundan boshlab 'value' kun ichida keladiganlari
@@ -46,7 +46,7 @@ class EslatmaFilter(django_filters.FilterSet):
         target_date = today + timedelta(days=value)
 
         # Bugun va 'value' kun oralig'idagi tugaydiganlarni olish
-        return queryset.filter(reception_end__gte=today, reception_end__lte=target_date)
+        return queryset.filter(universitet__reception_end__gte=today, universitet__reception_end__lte=target_date)
 
 
 class UserFilter(django_filters.FilterSet):

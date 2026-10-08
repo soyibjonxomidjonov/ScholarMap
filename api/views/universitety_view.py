@@ -1,5 +1,5 @@
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from api.filters import UniversityFilter
@@ -23,8 +23,8 @@ class CustomPagination(PageNumberPagination):
 
 
 class UniversitetViewSet(viewsets.ModelViewSet):
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = University.objects.all()
     serializer_class = UniversitySerializerConfig
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)

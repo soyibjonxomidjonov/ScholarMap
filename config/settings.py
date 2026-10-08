@@ -223,11 +223,16 @@ CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND") #Redis yoki bosh
 
 
 
-# SSL sozlamalari
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SSL sozlamalari (Faqat Production/HTTPS muhitda)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+# Fayl yuklash hajmini oshirish (50 MB) pdflar, rasmlar uchun muammo bo'lmasligi uchun
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800
 
 # CORS sozlamalari (CORS_ALLOWED_ORIGINS paketini o'rnatgan bo'lsangiz)
 CORS_ALLOWED_ORIGINS = [

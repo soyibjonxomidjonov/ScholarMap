@@ -23,11 +23,11 @@ class CustomPagination(PageNumberPagination):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    authentication_classes = []
-    permission_classes = [AllowAny]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = User.objects.all()
     serializer_class = UserSerializerConfig
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = UserFilter
-    search_fields = ['university', 'eslatma_matni', 'qolgan_kun', 'tugash_kun']
+    search_fields = ['username', 'first_name', 'last_name', 'email', 'phone_number']
     pagination_class = CustomPagination

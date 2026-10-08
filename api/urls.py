@@ -13,8 +13,9 @@ from rest_framework_simplejwt.views import (
 )
 
 from api.views import UserViewSet, UniversitetViewSet, EslatmaViewSet, ai_chat, super_ai_translate
-
 from api.views.misc import ai_chat_result
+from api.views.ai_assistant import ai_assistant_chat, ai_find_universities
+from api.views.chatbot_view import chatbot_message, chatbot_clear, chatbot_history
 from billing.views import ClickPaymentView, ClickCompleteView, ClickCreatePaymentView
 
 
@@ -90,9 +91,17 @@ urlpatterns = [
     path('v1/super-ai-translate/', super_ai_translate, name="super_ai_translate"),
     path('v1/ai-chat/result/<str:task_id>/', ai_chat_result),
 
+    # AI Yordamchi (suhbat + universitet topish)
+    path('v1/ai-assistant/', ai_assistant_chat, name="ai_assistant_chat"),
+    path('v1/ai-find-universities/', ai_find_universities, name="ai_find_universities"),
 
-    path('v1/click/pay/', ClickCreatePaymentView.as_view(), name='click-pay'),          # havola yaratish
-    path('v1/click/prepare/', ClickPaymentView.as_view(), name='click-prepare'),        # Click webhook 1
+    # LangChain + Groq Chatbot
+    path('v1/chatbot/', chatbot_message, name="chatbot_message"),
+    path('v1/chatbot/clear/', chatbot_clear, name="chatbot_clear"),
+    path('v1/chatbot/history/', chatbot_history, name="chatbot_history"),
+
+    path('v1/click/pay/', ClickCreatePaymentView.as_view(), name='click-pay'),
+    path('v1/click/prepare/', ClickPaymentView.as_view(), name='click-prepare'),
     path('v1/click/complete/', ClickCompleteView.as_view(), name='click-complete'),
 ]
 

@@ -13,6 +13,7 @@ class University(models.Model):
 
     reception_start = models.DateField(blank=False, null= False)
     reception_end = models.DateField(blank=False, null= False)
+    official_website = models.URLField(max_length=500, blank=True, null=True, verbose_name="Rasmiy sayt")
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

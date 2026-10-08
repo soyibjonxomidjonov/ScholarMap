@@ -37,7 +37,7 @@ class EslatmaViewSet(viewsets.ModelViewSet):
     serializer_class = EslatmaSerializerConfig
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = EslatmaFilter
-    search_fields = ['university', 'eslatma_matni', 'qolgan_kun', 'tugash_kun']
+    search_fields = ['universitet__university_name', 'eslatma_matni']
     pagination_class = CustomPagination
 
 
